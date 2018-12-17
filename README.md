@@ -1,6 +1,9 @@
 # Nova Permission Tool.
 
-This tool allows you to create and manage rules and permissions for nova resources.
+This tool allows you to create and manage rules and permissions for nova resources. After installation, the default nova resource permissions will be generated for all available resources.
+
+# Requirements & Dependencies
+This tool uses [Spatie Permission](https://github.com/spatie/laravel-permission) package.
 
 ## Installation
 
