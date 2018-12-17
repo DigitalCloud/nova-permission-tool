@@ -1,0 +1,30 @@
+{
+    "name": "digitalcloud/nova-permission-tool",
+    "description": "A Laravel Nova Permission tool.",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.0",
+		"spatie/laravel-permission": "^2.22"
+    },
+    "autoload": {
+        "psr-4": {
+            "DigitalCloud\\PermissionTool\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DigitalCloud\\PermissionTool\\ToolServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
