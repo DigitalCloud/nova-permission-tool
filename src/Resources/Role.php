@@ -75,12 +75,15 @@ class Role extends Resource
             }
             $resourceName = strtolower(substr(strrchr($resource, "\\"), 1));
             $resourcePermissions = [
-                "create $resourceName" => "create $resourceName",
-                "update $resourceName" => "update $resourceName",
-                "view $resourceName" => "view $resourceName",
-                "delete $resourceName" => "delete $resourceName",
-                "force delete $resourceName" => "force delete $resourceName",
-                "restore $resourceName" => "restore $resourceName"
+                "viewAny $resourceName"         => "viewAny $resourceName",
+                "create $resourceName"          => "create $resourceName",
+                "update $resourceName"          => "update $resourceName",
+                "view $resourceName"            => "view $resourceName",
+                "delete $resourceName"          => "delete $resourceName",
+                "force delete $resourceName"    => "force delete $resourceName",
+                "restore $resourceName"         => "restore $resourceName",
+                "attach $resourceName"          => "attach $resourceName",
+                "detach $resourceName"          => "detach $resourceName"
             ];
             foreach ($resourcePermissions as $resourcePermission) {
                 $dbPermision = \DigitalCloud\PermissionTool\Models\Permission::firstOrCreate(

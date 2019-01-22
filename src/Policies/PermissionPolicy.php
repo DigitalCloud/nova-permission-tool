@@ -10,6 +10,26 @@ class PermissionPolicy
 {
     use HandlesAuthorization;
 
+    public function attachAnyRole()
+    {
+         return true;
+    }
+    
+    public function detachRole()
+    {
+         return true;
+    }
+    
+    public function attachAnyUser()
+    {
+         return true;
+    }
+    
+    public function detachUser()
+    {
+         return true;
+    }
+    
     public function viewAny(): bool
     {
         return true;
