@@ -33,12 +33,12 @@ trait HasRoles
         });
     }
 
-    public function setRoleAttribute($roles) {
+    public function setRolesAttribute($roles) {
         if (! $this->exists) {
             $this->queuedRoles = $roles;
             return;
         }
-        $this->assignRole($roles);
+        $this->syncRoles($roles);
     }
 
     public function getRoleClass()
