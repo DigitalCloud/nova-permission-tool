@@ -36,7 +36,7 @@ class Role extends Field
 
     public function options() {
         return $this->withMeta([
-            'options' => \DC\PermissionTool\Models\Role::get()->map(function ($role) {
+            'options' => \DigitalCloud\PermissionTool\Models\Role::get()->map(function ($role) {
                 return [
                     'display' => $role->name,
                     'value' => $role->id,
