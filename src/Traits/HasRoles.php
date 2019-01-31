@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Spatie\Permission\Contracts\Role;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\Permission\PermissionRegistrar;
+use Spatie\Permission\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 trait HasRoles
