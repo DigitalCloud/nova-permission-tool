@@ -85,6 +85,13 @@ class Role extends Resource
                 "attach $resourceName"          => "attach $resourceName",
                 "detach $resourceName"          => "detach $resourceName"
             ];
+            // add resource actions
+            $object = new $resource($resource::$model);
+            foreach ($object->actions($request) as $action) {
+                if($action->name) {
+                    $resourcePermissions[$action->name] = $action->name;
+                }
+            }
             foreach ($resourcePermissions as $resourcePermission) {
                 $dbPermision = \DigitalCloud\PermissionTool\Models\Permission::firstOrCreate(
                     ['name' => $resourcePermission], ['guard_name' => 'web']
