@@ -1,6 +1,6 @@
 # Nova Permission Tool.
 
-This tool allows you to create and manage rules and permissions for nova resources. After installation, the default nova resource permissions will be generated for all available resources.
+This tool allows you to create and manage rules and permissions for nova resources. After installation, the default nova resource permissions will be generated for all available resources and resource actions.
 
 # Requirements & Dependencies
 This tool uses [Spatie Permission](https://github.com/spatie/laravel-permission) package.
@@ -41,6 +41,58 @@ public function tools()
         new PermissionTool(),
         // ...
     ];
+}
+
+```
+
+To allow the tool to generate permissions actions, you need to se the name of the action. Actions with no names will not be generated automatically.
+
+```php
+<?php
+
+namespace App\Nova\Actions;
+
+use Laravel\Nova\Actions\Action;
+
+class YourAction extends Action {
+    
+    // ...
+
+    public $name = 'send email';
+    
+    // ...
+
+}
+
+```
+
+and then in the resource you can authorize the action:
+
+```php
+<?php
+
+namespace App\Nova;
+
+use App\Nova\Actions\YourAction;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
+
+
+class Quotation extends Resource {
+    
+    // ...
+    
+    public function actions(Request $request) {
+        return [
+            (new YourAction())->canSee(function ($request) {
+                return Gate::check('send email'); // the same name of the action
+            })->canRun(function ($request) {
+                return Gate::check('send email'); // the same name of the action
+            })
+        ];
+    }
+    
+    // ...
 }
 
 ```
