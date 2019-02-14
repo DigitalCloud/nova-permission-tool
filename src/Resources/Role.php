@@ -70,25 +70,14 @@ class Role extends Resource
         $userResource = Nova::resourceForModel(getModelForGuard($this->guard_name));
 
         foreach (Nova::$resources as $resource) {
-            if($resource == 'Laravel\Nova\Actions\ActionResource') {
+            if ($resource == 'Laravel\Nova\Actions\ActionResource') {
                 continue;
             }
-            $resourceName = strtolower(substr(strrchr($resource, "\\"), 1));
-            $resourcePermissions = [
-                "viewAny $resourceName"         => "viewAny $resourceName",
-                "create $resourceName"          => "create $resourceName",
-                "update $resourceName"          => "update $resourceName",
-                "view $resourceName"            => "view $resourceName",
-                "delete $resourceName"          => "delete $resourceName",
-                "force delete $resourceName"    => "force delete $resourceName",
-                "restore $resourceName"         => "restore $resourceName",
-                "attach $resourceName"          => "attach $resourceName",
-                "detach $resourceName"          => "detach $resourceName"
-            ];
+            $resourcePermissions = $resource::$resourcePermissions;
             // add resource actions
             $object = new $resource($resource::$model);
             foreach ($object->actions($request) as $action) {
-                if($action->name) {
+                if ($action->name) {
                     $resourcePermissions[$action->name] = $action->name;
                 }
             }
@@ -99,13 +88,13 @@ class Role extends Resource
             }
         }
 
-        $fields =  [
+        $fields = [
             ID::make()->sortable(),
 
             Text::make(__('PermissionTool::roles.name'), 'name')
                 ->rules(['required', 'string', 'max:255'])
-                ->creationRules('unique:'.config('permission.table_names.roles'))
-                ->updateRules('unique:'.config('permission.table_names.roles').',name,{{resourceId}}'),
+                ->creationRules('unique:' . config('permission.table_names.roles'))
+                ->updateRules('unique:' . config('permission.table_names.roles') . ',name,{{resourceId}}'),
 
             \DigitalCloud\PermissionTool\Fields\Permission::make(__('PermissionTool::resources.Permissions'), 'permissions')->onlyOnForms(),
 
@@ -126,7 +115,7 @@ class Role extends Resource
     /**
      * Get the cards available for the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function cards(Request $request)
@@ -137,7 +126,7 @@ class Role extends Resource
     /**
      * Get the filters available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function filters(Request $request)
@@ -148,7 +137,7 @@ class Role extends Resource
     /**
      * Get the lenses available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function lenses(Request $request)
@@ -159,7 +148,7 @@ class Role extends Resource
     /**
      * Get the actions available for the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function actions(Request $request)
