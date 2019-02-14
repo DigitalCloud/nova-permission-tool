@@ -85,7 +85,7 @@ class Permission extends Resource
             DateTime::make(__('PermissionTool::permissions.updated_at'), 'updated_at')->exceptOnForms(),
 
             BelongsToMany::make(__('PermissionTool::resources.Roles'), 'roles', Role::class)->searchable(),
-            MorphToMany::make($userResource::label(), 'users', $userResource)->searchable(),
+            //MorphToMany::make($userResource::label(), 'users', $userResource)->searchable(),
         ];
     }
 

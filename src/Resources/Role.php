@@ -70,20 +70,25 @@ class Role extends Resource
         $userResource = Nova::resourceForModel(getModelForGuard($this->guard_name));
 
         foreach (Nova::$resources as $resource) {
-            if ($resource == 'Laravel\Nova\Actions\ActionResource') {
+            if ($resource == 'Laravel\Nova\Actions\ActionResource' || !isset($resource::$resourcePermissions)) {
                 continue;
             }
             $resourcePermissions = $resource::$resourcePermissions;
+            $resourceName = strtolower(substr(strrchr($resource, "\\"), 1));
+
             // add resource actions
-            $object = new $resource($resource::$model);
-            foreach ($object->actions($request) as $action) {
-                if ($action->name) {
-                    $resourcePermissions[$action->name] = $action->name;
-                }
-            }
-            foreach ($resourcePermissions as $resourcePermission) {
+          //  $object = new $resource($resource::$model);
+//            foreach ($object->actions($request) as $action) {
+//                if ($action->name) {
+//                    $resourcePermissions[$action->name] = $action->name;
+//                }
+//            }
+            foreach ($resourcePermissions as $key => $resourcePermission) {
+                if (is_int($key))
+                    $resourcePermission .= " $resourceName";
+
                 $dbPermision = \DigitalCloud\PermissionTool\Models\Permission::firstOrCreate(
-                    ['name' => $resourcePermission], ['guard_name' => 'web']
+                    ['name' => $resourcePermission], ['guard_name' => 'admin']
                 );
             }
         }
