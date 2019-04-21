@@ -4,7 +4,7 @@ namespace DigitalCloud\PermissionTool\Resources;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Resource;
+use App\Nova\Resource;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
